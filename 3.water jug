@@ -1,0 +1,29 @@
+def water_jug_problem(jug1_capacity, jug2_capacity, target):
+    jug1 = 0
+    jug2 = 0
+    steps = 0
+    history = []
+    while jug1 != target and jug2 != target:
+        if jug2 == jug2_capacity:
+            jug2 = 0
+            history.append((jug1, jug2))
+        elif jug1 == 0:
+            jug1 = jug1_capacity
+            history.append((jug1, jug2))
+        else:
+            amount_to_pour = min(jug1, jug2_capacity - jug2)
+            jug1 -= amount_to_pour
+            jug2 += amount_to_pour
+            history.append((jug1, jug2))
+        steps += 1
+    return jug1, jug2, steps, history
+
+if __name__ == "__main__":
+    jug1_capacity = 4
+    jug2_capacity = 3
+    target = 2
+    jug1_final, jug2_final, steps, history = water_jug_problem(jug1_capacity, jug2_capacity, target)
+    print(f"Final state: Jug1: {jug1_final} gallons, Jug2: {jug2_final} gallons")
+    print(f"Number of steps: {steps}")
+    for step, (j1, j2) in enumerate(history, 1):
+        print(f"Step {step}: Jug1: {j1}L, Jug2: {j2}L")
