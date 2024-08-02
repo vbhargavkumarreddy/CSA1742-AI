@@ -1,0 +1,33 @@
+import itertools
+def is_valid_solution(puzzle, letters, perm):
+   
+    trans_table = str.maketrans(letters, ''.join(map(str, perm)))
+   
+    translated_puzzle = puzzle.translate(trans_table)
+  
+    try:
+        return eval(translated_puzzle)
+    except:
+        return False
+def solve_crypt_arithmetic(puzzle):
+  
+    letters = ''.join(set(filter(str.isalpha, puzzle)))
+    
+    if len(letters) > 10:
+        return "Too many unique letters in the puzzle."
+   
+    digits = list(range(10))
+    for perm in itertools.permutations(digits, len(letters)):
+        if is_valid_solution(puzzle, letters, perm):
+            
+            return {letters[i]: perm[i] for i in range(len(letters))}
+    
+    return "No solution found."
+
+puzzle = "SEND + MORE == MONEY"
+
+solution = solve_crypt_arithmetic(puzzle)
+
+print("Solution:")
+for letter, digit in solution.items():
+    print(f"{letter} = {digit}")
