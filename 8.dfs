@@ -1,0 +1,32 @@
+def dfs(graph, start_node):
+    visited = set()
+    order_of_visit = []
+
+    def dfs_recursive(node):
+        if node not in visited:
+            visited.add(node)
+            order_of_visit.append(node)
+            for neighbor in graph[node]:
+                dfs_recursive(neighbor)
+    dfs_recursive(start_node)
+    
+    return order_of_visit
+
+def main():
+    graph = {
+        'A': ['B', 'C'],
+        'B': ['A', 'D', 'E'],
+        'C': ['A', 'F', 'G'],
+        'D': ['B'],
+        'E': ['B', 'H'],
+        'F': ['C'],
+        'G': ['C'],
+        'H': ['E']
+    }
+    
+    start_node = 'A'
+    result = dfs(graph, start_node)
+    print("DFS order of visit:", result)
+
+if __name__ == "__main__":
+    main()
