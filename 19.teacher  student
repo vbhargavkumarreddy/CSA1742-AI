@@ -1,0 +1,33 @@
+entity(student(john),'s101').
+entity(student(bhargav),'s102').
+entity(teacher(mary),'t201').
+entity(teacher(david),'t202').
+entity(subject(math),'m201').
+entity(subject(english),'m202').
+
+teaches_relation(mary,math).
+teaches_relation(david,english).
+
+teaches(Subjectcode,Teachercode):-
+    entity(subject(Subject),Subjectcode),
+    entity(teacher(Teacher),Teachercode),
+    teaches_relation(Teacher,Subject).
+subjects_taught_by_teacher(TeacherName, Subjects) :-
+    entity(teacher(TeacherName), TeacherCode),
+    findall(Subject, (entity(subject(Subject), Code), teaches(Code, TeacherCode)), Subjects).
+
+entity(student(john), 'S101').
+entity(student(lisa), 'S102').
+entity(teacher(mary), 'T201').
+entity(teacher(david), 'T202').
+entity(subject(math), 'M301').
+subjects_taught_by_teacher(TeacherName, Subjects) :-
+    entity(teacher(TeacherName), TeacherCode),
+   findall(Subject, (entity(subject(Subject), Code), teaches(Code, TeacherCode)), Subjects).
+    teaches(SubjectCode, TeacherCode) :-
+    entity(subject(Subject), SubjectCode),
+    entity(teacher(Teacher), TeacherCode),
+    teaches_relation(Teacher, Subject).
+teaches_relation(mary, math).
+teaches_relation(david, english).
+teaches_relation(david, history).
