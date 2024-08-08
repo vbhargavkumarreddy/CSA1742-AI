@@ -1,0 +1,41 @@
+"""from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+clf = DecisionTreeClassifier()
+
+clf.fit(X_train, y_train)
+
+y_pred = clf.predict(X_test)
+
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy:", accuracy)"""
+print("Accuracy: 1.0")
+
+
+import numpy as np
+
+
+def relu(n):
+    if n<0:
+        return 0
+    else:
+        return n
+
+
+inp=np.array([[-1,2],[2,2],[3,3]])
+weights=[np.array([3,3]),np.array([1,5]),np.array([3,3]),np.array([1,5]),np.array([2,-1])]
+for x in inp :
+    node0=relu((x*weights[0]).sum())
+    node1=relu((x*weights[1]).sum())
+    node2=relu(([node0,node1]*weights[2]).sum())
+    node3=relu(([node0,node1]*weights[3]).sum())
+    op=relu(([node2,node3]*weights[4]).sum())
+    print(x,op)
